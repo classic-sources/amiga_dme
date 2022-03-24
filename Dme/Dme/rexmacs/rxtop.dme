@@ -1,0 +1,5 @@
+/* give 'em a TOP command */
+top
+say "RC for TOP = " RC
+exit
+

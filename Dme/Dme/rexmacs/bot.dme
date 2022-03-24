@@ -1,0 +1,7 @@
+/*   Just make "bot" a synonym/alias for "bottom".   */
+/*                                                   */
+/*   Kim DeVaughn  12/21/87                          */
+
+bottom
+exit 0
+

@@ -1,0 +1,17 @@
+/*   Saves the marked block as a file with the filename specified by     */
+/*   the 1st argument, and then deletes it from the file being edited.   */
+/*   If no name is specified, the block is written to file "t:$bsave".   */
+/*   Arguments following the 1st one are ignored.                        */
+/*                                                                       */
+/*   Kim DeVaughn  12/28/87                                              */
+
+options failat 5
+rc = 0
+
+parse arg filename junk
+if filename = ""
+   then bsave "t:$bsave"
+   else bsave  filename
+bdelete
+exit rc
+

@@ -1,0 +1,10 @@
+
+NULL:	   Handler = L:null-handler
+	   Stacksize = 500
+	   Priority = 5
+	   GlobVec = 1
+#
+
+
+
+

@@ -1,0 +1,5 @@
+/* give 'em a BOTTOM command */
+bottom
+say "RC for BOTTOM = " RC
+exit
+

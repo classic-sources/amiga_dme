@@ -1,0 +1,8 @@
+/* test to look at what dme is passing to ARexx .... */
+
+parse source a b c d e f g h i
+say a b c d e f g h i
+parse arg a1 a2 a3 a4 a5 a6
+say a1 a2 a3 a4 a5 a6
+exit 0
+

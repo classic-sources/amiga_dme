@@ -1,0 +1,18 @@
+/* test to see if we can invoke ARexx from inside of dme .... */
+
+bottom
+top
+bottom
+top
+bottom
+top
+bottom
+top
+bottom
+top
+find "ARexx"
+say foo
+parse source a b c d e f g h i
+say a b c d e f g h i
+exit 0
+

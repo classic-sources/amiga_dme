@@ -1,0 +1,19 @@
+/* test to see if we can invoke ARexx from inside of dme .... */
+
+parse source a b c d e f g h i
+say a b c d e f g h i
+parse arg j k l m n o
+say j k l m n o
+
+
+options failat 100
+
+shit
+damn
+and hell
+
+it
+dont
+matter to me
+exit(69)
+

@@ -1,0 +1,15 @@
+/*   Saves the file with the filename specified by the 1st argument.   */
+/*   If no name is specified, the file is saved with it's original     */
+/*   filename.  Arguments following the 1st one are ignored.           */
+/*                                                                     */
+/*   Kim DeVaughn  12/21/87                                            */
+
+options failat 5
+rc = 0
+
+parse arg filename junk
+if filename = ""
+   then saveold
+   else saveas  filename
+exit rc
+

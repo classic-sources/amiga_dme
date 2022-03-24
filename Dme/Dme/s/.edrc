@@ -1,0 +1,85 @@
+
+#   Some menus
+#
+#   Experienced users do not normally need menus and usually delete
+#   them to save memory (unless you have lots of memory of course).
+
+menuoff
+menuclear
+menuadd Project (Insert-File  (f1))     f1
+menuadd Project (Open-Replace (f2))     f2
+menuadd Project (Open-NewWin  (f3))     f3
+menuadd Project (Save-Config)           saveconfig
+menuadd Project (Save         (f9))     f9
+menuadd Project (Save-As)               (escimm (saveas ))
+menuadd Project (Save-Close   (f10))    f10
+menuadd Project (Close        (c-q))    c-q
+
+menuadd Control (Iconify  (a-i))    iconify
+menuadd Control Case-Sensitive	    (ignorecase off)
+menuadd Control Case-InSensitive    (ignorecase on)
+menuadd Control Tabs-Opt-On	    (savetabs on)
+menuadd Control Tabs-Opt-Off	    (savetabs off)
+
+menuadd Mode	(Insert    (c-i))   c-i
+menuadd Mode	(Overwrite (c-o))   c-o
+menuadd Mode	(Wordwrap  (c-w))   c-w
+menuadd Mode	(Wordwrap-LMargin)  (escimm (setparcol ))
+menuadd Mode	(Wordwrap-RMargin)  (escimm (margin ))
+
+menuadd Find	(Find     (c-/))    c-/
+menuadd Find	(Next     (c-n))    c-n
+menuadd Find	(Prev     (c-p))    c-p
+menuadd Find	(Find-Rep (cs-/))   cs-/
+menuadd Find	(Next-Rep (cs-n))   cs-n
+menuadd Find	(Glob-Rep)          (repeat -1 nextr)
+
+menuadd Block	(Set Start (c-b))   (unblock c-b)
+menuadd Block	(Set End   (c-b))   c-b
+menuadd Block	(Clear     (c-u))   c-u
+menuadd Block	(BCopy     (a-c))   a-c
+menuadd Block	(BMove     (a-m))   a-m
+menuadd Block	(BDelete   (a-d))   a-d
+
+menuadd Marker	(Mark 1)    (ping 1)
+menuadd Marker	(Mark 2)    (ping 2)
+menuadd Marker	(Mark 3)    (ping 3)
+menuadd Marker	(Mark 4)    (ping 4)
+menuadd Marker	(Goto 1)    (pong 1)
+menuadd Marker	(Goto 2)    (pong 2)
+menuadd Marker	(Goto 3)    (pong 3)
+menuadd Marker	(Goto 4)    (pong 4)
+
+menuon
+
+
+#   Some key maps.  Note that below keymaps are used as macros
+#   from menu options (though you don't need to do things this way)
+
+ignorecase on
+savetabs on
+map c-tab   (ping 0 while c=32 right repeat tr (( ) left) pong 0 down)
+map cs-tab  `del del del del down'
+map a-tab   `goto block while cb `c-tab down''
+map as-tab  `goto block while cb `cs-tab down''
+map s-f9    `saveas ram:\$filename'
+map a-/     (escimm (findstr ) escimm (repstr ) repeat -1 nextr)
+map c-m     menuon
+map c-right (repeat 8 tab)
+map c-left  (repeat 8 backtab)
+map s-return return
+map (a- )   (( ))
+
+map (a-i)   iconify
+
+map c-f1    (scanf %s bottom insfile \$scanf)
+map c-f2    (scanf %s newfile \$scanf)
+map c-f3    (scanf %s newwindow newfile \$scanf)
+map s-f7    (setfont topaz.font 7)
+map c-[     (ping 1 iconify ctags)
+
+map cs-n    (nextr)
+map cs-/    (escimm (findstr ) escimm (repstr ))
+
+# addpath to various places for ctags and ref access.  See the docs
+

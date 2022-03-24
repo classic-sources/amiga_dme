@@ -1,0 +1,101 @@
+
+    HELP key enforcer hit.
+
+    ARexx support, arexx scripts can make DME commands
+
+    point-drag approach to blocks
+
+    BUG:    null: not mounted, try to execute, cancel... CRASH
+
+    BUG:    change from 80->60 with DME up then iconify... CRASH
+
+
+Last Revision 3 November 1989,	Matthew Dillon
+
+    3 Nov 1989:
+	Incorporate UNDO code
+
+    5 July 1989:
+	split in line above block does not fix the block start/end markers!
+	record mode
+
+    19 June 1989:
+	char block functions
+	replace query
+	find-replace cursor problem
+	hands on examples for CTAGS and REFS
+	add flag for 'line under cursor is empty'
+	delete word
+	pal config?
+
+
+    ---
+
+
+	  3 December 1988: read-only mode.
+	-31 October 1988:  Restore permission bits on write (if overwrite)
+			    & assoc. commands
+	-31 October 1988:  Save while iconified, fix window colors
+
+
+
+
+	-SAVEMAP, does not output (s- ) properly.
+
+BUGS:
+	- Word Wrap (actually reformat).  hold 1 down ... can freeze up due
+	  to word being too long.
+	- Can get behind keyboard when key repeating.
+	- Fix case-ignore
+
+TODO:
+	- wordwrap mode reformat should put two spaces after punctuation
+	  .?!:; instead of 1.
+	- ascii numeric variable support and ENV: support
+	- Gerhard's stuff
+	- exception handling
+	- string kill vector
+	- character oriented blocks
+	- stackable search/replace strings
+	- a way to cancel all user keymaps
+	- clipboard support
+	- anchored search
+	- provision to show mapping for a single key.  Allow $map .. $c-a...
+	- Allow different current directory for each window
+	- Add scroll gadgets
+	- Formatted Save
+
+
+fsave (formatted save)
+
+    When it encounters one linefeed with the next character not whitespace,
+    it writes a space.	If the next character is whitespace it leaves it
+    alone (write one linefeed).  If the next character is a linefeed, write
+    one linefeed then copy linefeeds up to the next non-linefeed.
+
+    This will almost allow "word-processor" output... with columns! Very
+    simple, very small, and it will save me from the horrors of
+    PageSetter's editor.  You may want to do funky things to the name like
+    "fsaveas" or "fbsave" or whatever.
+
+
+SUGGESTIONS FOR NOT SO IMMEDIATE FUTURE:
+
+   Add some user-accessible variables, like for current x/y position,
+total text length, insert mode, modification status, window size and
+position, current line length, last operation status, etc.
+
+   Add an array of user integer variables to go along with the array
+of toggles.
+
+   Add a command to evaluate simple arithmetic expressions and store
+the result in user variables.
+
+   Teach the condition evaluator (for "if" and "when") to do comparisons
+on integers and maybe also on strings ("if $scanf=`something'" ?).
+
+   Have you considered porting the guts of DME into a machine-independent
+environment (curses?).  I know, this is pretty far fetched, it's just that
+I miss the power of DME at work...
+
+

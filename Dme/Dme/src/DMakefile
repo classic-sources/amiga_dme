@@ -1,0 +1,34 @@
+
+#   DMakefile for DME.	Directories required:
+#	dtmp:dme/	location of objects for DME
+#
+#   note that we place prog-protos.h in the object directory as well,
+#   since this is a generated file.
+
+EXE = ram:dme
+OD  = dtmp:dme/
+DCC = dcc
+CFLAGS= -r -ms -I$(OD)
+PROTOS= $(OD)prog-protos.h
+
+
+SRCS= command.c filereq.c globals.c keyboard.c main.c menu.c mods.c refs.c \
+      rexx.c subs.c cmd1.c cmd2.c cmd3.c afilereq.a rexxbind.a wildcmp.a
+
+OBJS= $(SRCS:"*.c":"$(OD)*.o") $(SRCS:"*.a":"$(OD)*.o")
+
+$(EXE): $(PROTOS) $(OBJS)
+    cd $(OD)
+    $(DCC) $(CFLAGS) $(OBJS:"$(OD)*.o":"*.o") -o %(left)
+    cd
+
+$(OBJS) : $(SRCS)
+    $(DCC) %(right) -o %(left) -c $(CFLAGS)
+
+$(PROTOS) : $(SRCS)
+    -delete %(left)
+    makeproto -o %(left) %(right)
+
+clean:
+    delete $(OBJS)
+

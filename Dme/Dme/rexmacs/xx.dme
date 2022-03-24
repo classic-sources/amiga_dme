@@ -1,0 +1,17 @@
+/* test to see if we can invoke ARexx from inside of dme .... */
+
+yy
+bottom
+top
+bottom
+top
+bottom
+top
+bottom
+top
+bottom
+top
+find "rexx"
+yy
+exit 0
+

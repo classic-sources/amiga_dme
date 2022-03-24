@@ -1,0 +1,18 @@
+/*   Inserts the file specified by the 1st argument immediately above	 */
+/*   the line the cursor is on.  If no filename is specified, the file	 */
+/*   "t:$bsave" is used if it exists.  Arguments following the 1st one   */
+/*   are ignored.							 */
+/*									 */
+/*   Kim DeVaughn  12/21/87						 */
+
+options failat 5
+rc = 0
+
+parse arg filename junk
+if filename = ""
+   then if exists("t:$bsave")
+	   then insfile "t:$bsave"
+	   else nop
+   else insfile filename
+exit rc
+

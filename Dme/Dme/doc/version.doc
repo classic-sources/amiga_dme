@@ -1,0 +1,332 @@
+				    VI
+			      REVISION SUMMARY
+
+V1.45
+    - menu code updated BIX:dhack
+    - iconify code updated BIX:fgk
+
+V1.44
+    - workbench problems all fixed! (I HOPE!)
+
+V1.43
+    - refs command fixed yet again
+
+V1.42
+    - keyboard macro routines accept foreign characters (> ascii code 127)
+    - bug fix to $variable stuff when 'variable' does not exist
+    - bug fix to split
+    - bug fix to join
+    - COL command enhanced (now w/ +col and -col for relative movement)
+    - new special vars: $margin, $modified, $currentline
+    - new commands UNDELINE, MODIFIED, JUSTIFY, UNJUSTIFY, TITLE
+    - cosmetic changes to arp requester
+
+V1.41 HOPEFULLY STABLE
+    - Recompiled with fixes and new DICE version
+
+V1.40 GAMMA INTERMEDIATE
+    - No longer configurable with 'config' program.  Now saves window
+      dimensions, color selection, and most window modes (insert, margin,
+      etc...) to S:dme.config, restoring automatically when any new
+      window is brought up.
+
+    - Can no longer specify window dimensions on command line or via
+      workbench, sorry!
+
+    - New commands: SAVECONFIG FGPEN BGPEN HGPEN
+
+    - Fixed bug in ARP requester ... wasn't saving D2/D3/A6.  Also fixed
+      but in Lattice asm... apparently if the __MERGED section in afilereq.asm
+      is first lattice asm generates a 0 byte bss section OOPS!
+
+    - This is an Experimental intermediate version
+      (executable compiled w/ my compiler and may not compile cleanly under
+       Lattice or Aztec)
+
+V????
+    - didn't restore pr_ConsoleDevice after an execute!
+
+V1.39
+    - NEW COMMAND, 'setparcol'.  Set paragraph left margin for reformat
+      command and word wrap mode.  The default is -1 (same as original
+      format), else a column number.
+
+    - case sensitive bug fixed.. used to always be case insensitive
+      no matter which option you chose.
+
+    - search-and-replace bug fixed... cursor positioned to END of
+      replaced string to prevent improper operation when replace
+      string is a superset of the search string.
+
+    - Menus more compact.
+
+V1.38
+    - Removed fix in 1.37, use '1.4libpatch' if running under 1.4A16.
+
+    - FIXED AREXX BUG... DMe would crash if ARexx was installed for
+      V's 1.37 and 1.36
+
+V1.37
+    - 1.4a16 crashes on OpenLibrary() where the library does not
+      exist.  Doesn't try to open arex if running under 1.4
+      (for now, this is a temporary stopgap)
+
+V1.36
+    -Removed dres.library IPC.	Removed dres.library requirement.  (ARexx IPC
+     still in of course).  Source now compilable under Lattice C and Manx C.
+
+V1.35a
+    -can change block pen now and DME updates the title using the correct
+     color.
+
+V1.35
+    -Bug in 1.34 fixed, would only work if dres.library was installed
+	OOOPPS.
+
+V1.34
+    -New variables $fpath and $fname have been added.  $fpath is the path
+     part of the current filename, including trailing / or : (if any).
+     $fname is anything after that.  For example:
+
+	FILE		fpath	    fname
+	s:.edrc 	s:	     .edrc
+	blah			     blah	 (path = "")
+	/poof		/	     poof
+
+
+V1.33	RELEASE
+    -You can now run <nil: >nil: DME and close the console window that
+     you ran it from.  The execute command now requires the NULL: device
+     to be mounted or an error will occur.
+
+    -space -> tab conversion does not take place after the first control
+     character (<32), as well as the first quote ("), open paren ((), or
+     single quote (') that it didn't before.
+
+V1.32		    (small fixes)
+    -Fixed workbench bugs, DME would exit if it could not find the
+     executables disk object.  No longer does so.
+
+V1.31	RELEASE
+    -Added new variables $lineno and $colno
+    -Added CD command, ARPLOAD automatically CD's to DIR part of
+     requester.
+    -Added IPC support (my own ipc)
+    -Fixed bug in BMOVE (when the source block is an entire file)
+
+V1.30C	LIMITED
+    -MAJOR!	Macros, Internal variables, and ENV: enviroment variables
+		may be specified with $varname, $(varname), or $`varname'.
+
+    -New commands:  SET, SETENV, UNSET, UNSETENV    (variable support)
+
+    -REFS window bug fixed I hope (made window slightly too small).
+    -SAVE[S]MAP bug fixed for space mappings
+    -CTAGS doesn't modify the window title if the window is iconified
+     (allows you to make the following map: map <somemap> (iconify ctags)
+
+
+V1.30B	Limited release
+    -Kim fixed a bug in splitpath
+    -added CTAGS command... support for Aztec's CTAGS program
+    -added ADDPATH command... special directory paths for DME
+    -added REMPATH
+
+	REFS no longer searches fixed directories, but looks at the
+	ADDPATH directories.  CTAGS also looks at the ADDPATH
+	directories.  CTAGS supports arbitrary directory specifications
+	and is intelligent about where to look for the TAGS file.
+
+
+V1.30	RELEASE
+    -a couple small bugs fixed
+    -fixed text bug that sometimes overwrites the right border
+    -added new commands
+	SETFONT     (for all of text, static fonts only)
+	IGNORECASE  (for searches)
+    -added new commands (AREXX support, Kim DeVaughn)
+	RX, RX1, RX2
+    -added new commands (by Kevin Speghetti)
+	PUSHMARK, POPMARK, SWAPMARK, PURGEMARK	    block marker stack
+	PING, PONG				    text markers (0-9)
+
+	note: block marks on the stack, ping and pong, do not track text
+	changes (bug).
+
+    -Many commands will now work while the text window is iconified
+     without having to uniconify it.
+
+V1.29E
+    -Fixed low memory bug in do_bomve() again.
+    -Fixed arp file requestor problems.
+    -added ARPINSFILE command.
+V1.29D
+    -Fixed low memory bug in do_bmove()...
+V1.29C
+    -highlighted icon window if file modified
+V1.29B
+    -INLINE FILENAME:
+     added $filename variable.	$scanf and $filename can now be embedded
+     anywhere on the command line.
+    - ^x added (control-character), so you do not have to embed actual
+     control characters in your macros.
+    - \ overide added (\^x) produces "^x" instead of control-x, etc...
+
+V1.29  RELEASE
+
+    -Foreign keyboards supported better.
+    -Iconify window is activated rather than not activated.
+    -can keymap keys which normally produce nothing.
+    -blocks are displayed in a different color
+    -can now move/copy across windows
+    -can now resize window while file loading
+    -new commands ARPLOAD ARPSAVE   (uses ARP filerequestor if arp.library)
+     MENUADD MENUDEL MENUDELHDR MENUCLEAR MENUOFF MENUON
+
+    minor bugs fixed, major remodeling of the source (this is what I
+    use my vacation for!)
+
+    menus:  the right mouse button may be mapped only if there is no
+    menu, Else is used as the menu selector.  NOTE! It is much faster
+    to surround a set of MENUADD commands in a source file with
+    MENUOFF at the beginning and MENUON at the end.  You can also specify
+    menu items as macros in other commands (example: project-save)
+
+V1.28h SMALL RELEASE	references work better
+
+V1.28g SMALL RELEASE	Fixed NK0 bug in 1.28f plus keymap problems in 1.28f
+
+V1.28f RELEASE
+    Fixed macro bug created in 1.28e... could not specify macros on the
+    command line.
+
+V1.28e INTERNAL/BETA
+    New Commands:   REF     (c-])   -cross reference the word under the
+				     cursor and bring up a new window
+				     containing a description for that
+				     word.  See docs above.
+
+    -The keymapping has been fixed and should now work on any foreign
+     keyboard.
+    -MAJOR ADDITION:  () may be used instead of `' to enclose commands.
+     One can enclose the other ... that is, to get the "'" character you
+     can say (this is a charlie's day).
+
+V1.28c RELEASE
+    New Commands:   CHFILENAME	    -change default filename for a window
+		    RECALL  (c-esc) -recall command line (e.g. you make a
+				     mistake).	Must be used from a keymap,
+				     default is c-esc.
+
+		    SCANF	    -C scanf (single string only).  Extract
+				     strings from the text for use in any
+				     arbitrary command.
+
+    Command Parser: $scanf	    -as an argument by itself is recognized
+				     to be the extracted string from scanf.
+				     Currently, the variable name (after
+				     the dollar) can be anything since only
+				     one variable exists, but use '$scanf'
+				     for future compatibility.
+
+    -Many Bug fixes (mainly benign bugs)
+    -^C (CONTROL C) now recognized when typed in a window.  c-c is mapped
+     to () = no action.
+    -Please look at the revised default keymappings listed in these docs.
+
+
+V1.28 LIMITED RELEASE
+    New Commands :  SCROLLUP	(a-up)
+		    SCROLLDOWN	(a-down)
+    Modified Cmds:  ESCIMM
+	The execution of commands specified by an ESCIMM is blocked until
+	the user hits return on the ESCIMM command line.
+
+		    BCOPY
+	No longer unblocks the block.
+
+    -Title bar status line no longer blinks when it changes
+    -Key releases no longer effect operation
+V1.27 RELEASE
+    -macros run about 20% faster due to hashing of the command table
+    -Maximum # of toggles raised to 256 (see IF/WHILE)
+    -small fixes to the code (nothing major)
+    -child windows inherit tab stops, insert mode, and wordwrap mode
+    -MOUSE BUTTONS AND MOVEMENT CAN NOW BE MAPPED
+    -New Commands: ICONIFY	(used to be hardwired.  Is now a command)
+    -Extended Commands: GOTO	(GOTO END of block)
+V1.26 Beta, minimal Release
+    -Workbench support
+    -New Command:   EXECUTE
+V1.25 RELEASE
+    -BSAVE does NOT UNBLOCK after saving (switch in functionality yet again)
+    -various bugs fixed (IF, tabs on file save)
+    -New Commands: MARGIN, REFORMAT, WORDWRAP, RESIZE,
+		   TOPEDGE, LEFTEDGE, WIDTH, HEIGHT
+    -Command line options added for setting the window size and an optional
+     specified script file (when specified, local .EDRC not sourced).
+
+    -Enhanced Commands: IF  ..more control with conditions, addition of
+			      a couple more specifications.
+		       JOIN .. functionality slightly changed
+    -keymaps may now be used as macros in other commands. (macros)
+    -New keymaps added to the default set.
+    -Mouse movement cleaned up a little.
+
+V1.24 Internal
+
+V1.23 RELEASE
+    -S:.EDRC now sourced instead of C:.EDRC
+    -User keymappings now work in COMMAND mode (when you hit ESC).
+    -You can now map the Amiga keys ('A' for Amiga, since 'a' is alt).
+    -Enhanced Commands: IF/IFELSE/WHILE (optional '!' in front of cond)
+			new condition 'cb' 'character is in selected block'
+			GOTO block  (goto beginning of block)
+    -NewCommands:    PAGESET SAVETABS
+    -Writing TABS (always 8) out to disk to save space now supported.
+
+V1.22 RELEASE (BUF FIXES FROM 1.20)
+    -'newfile' fixed
+V1.21 RELEASE (BUG FIXES FROM 1.20)
+    -iconify and window handling fixed
+    -left mouse button now tracks the mouse.
+V1.20 RELEASE
+    -bug fixes: bsave now unmarks the block, bdelete now sets 'modified' flag.
+	    (other small fixes).
+    -enhancements: overwrite mode status indicator, find, find-replace now
+	    completely implemented (yahhoo!!!)
+    -changed commands:	FIND NEXT PREV: no longer loop back to the top of
+	    file or top->bottom in the case of PREV.  DELINE will now delete
+	    text on the line if there is only one line of text.
+    -enhanced commands: GOTO REPEAT
+    -new commands: SAVEMAP SAVESMAP TOGGLE SETTOGGLE RESETTOGGLE TLATE
+		   IF IFELSE WHILE BSOURCE
+		   FINDSTR REPSTR FINDR NEXTR PREVR
+		   NEWWINDOW
+    -new keymappings: (see a-s, a-S, f3)
+    -window iconification with mouse menu button.
+
+
+V1.12 RELEASE
+    -cursor is now pen #3 rather than #1.
+    -changeover to AZTEC C, smaller executable.
+    -now maps shift space to a space.
+    -new commands: REMEOL, WLEFT, WRIGHT
+    -display bug fixes (SPLIT)
+    -FIND/PREV/NEXT will now abort a REPEAT if string not found.
+
+V1.11 RELEASE NOTES
+    -Bug fixes (mainly graphical mistakes).
+    -User keymappings are disabled in command mode (so you can unmap
+      single ascii characters you may have mapped).
+    -Illegal key combinations no longer give garbage (e.g. ALT-CURSOR-DOWN)
+      you can, of course, still map them to anything you wish.
+    -Save now checks for error conditions on write.
+    -Uses Default Console Keymap (i.e. no longer assumes USA)... but there
+      *is* some stangeness.
+
+V1.00 RELEASE NOTES
+    -has find, but no replace function
+    -assumes USA keyboard		    (fixed 1.11)
+    -disk files written out use spaces instead of tabs&spaces
+

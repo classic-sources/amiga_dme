@@ -1,0 +1,18 @@
+/* test to see if we can invoke ARexx from inside of dme .... */
+say "Gee ... I really did get called!!!"
+say address()
+options failat 4
+shit
+say "RC = " RC
+damn
+say "RC = " RC
+and hell
+say "RC = " RC
+it
+say "RC = " RC
+dont
+say "RC = " RC
+matter to me
+say "RC = " RC
+exit(69)
+

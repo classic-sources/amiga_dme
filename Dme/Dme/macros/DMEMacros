@@ -1,0 +1,221 @@
+# My own settings for DME
+# © Mikael Karlsson
+# Distribute as you wish but don't claim them for your own creation.
+
+topedge 4
+leftedge 3
+addpath s:
+
+#Proper arrow keys
+
+map `left'      `ifelse l `ifelse t `left' `up last'' `left''
+map `right'     `ifelse r `ifelse b `right' `down first'' `right''
+map `s-up'      `pageup'
+map `s-down'    `pagedown'
+map `s-left'    `-left while !ca `-left' while ca `-left' -right'
+map `s-right'   `while ca `-right' if !r `while !ca `-right'''
+map `a-up'      `top'
+map `a-down'    `bottom'
+map `a-left'    `first'
+map `a-right'   `last'
+map `c-up'      `top'
+map `c-down'    `bottom'
+map `c-left'    `first'
+map `c-right'   `last'
+
+
+#Block commands
+
+map `c-ret'     `block'
+map `c-del'     `bdelete'
+
+#Extra stuff
+
+map `s-help'    (newwindow)
+map `csa-del'   (escimm `unblock top first block bottom block bdelete')
+map `a-c'       (wright wleft while !ca (right) while cn (right) if cl (tlate -32) right while ca (if cu (tlate +32) right) wright)
+map `a-l'       (wright wleft while !ca (right) while cn (right) while ca (if cu (tlate +32) right) wright)
+map `a-u'       (wright wleft while !ca (right) while cn (right) while ca (if cl (tlate -32) right) wright)
+map `a-t'       (block block down down bmove up)
+map `c-t'       (scanf %1s del right `\$scanf' left)
+map `s-bs'      (left while c=32 (del left) ifelse ca (while ca (right bs left)) (while !ca (right bs left)) right)
+map `c-bs'      (left ifelse c=32 (del) (right))
+map `s-del'     (ifelse r join remeol)
+map `tab'       (ifelse t (tab) (up s-right down))
+map `a-f'       (wright wleft while !ca (right) ` ' while ca right ` ' wleft scanf %s bs while ca (right) del find $scanf)
+map `a-n'       (next)
+map `bs'        (ifelse l (up last join if !l (del)) (bs))
+map `return'    (split first while c=32 (down ` ' up) if c=123 (down ` ' up) while c=32 (down ` ' up) down)
+
+#C-Style
+
+map `a-9'       (settoggle 40 while 40 (-left if c=41 (a-9 -left) ifelse c=40 (resettoggle 40) (settoggle 40)))
+map `cs-b'      (tlate 128 tlate 128 tlate 128 tlate 128 tlate 128 tlate 128)
+
+map `('         (`()' left)
+map `)'         `ifelse c=41 `ping 9 a-9 repeat 12 `cs-b' tlate 40 pong 9 right' ``)'''
+
+map `{'         (`{ }' left)
+map `}'         (ifelse c=125 (c-bs c-bs right) (`}'))
+map `['         (`[]' left)
+map `]'         (ifelse c=93 (right) (`]'))
+map `"'         (ifelse c=34 (right) (`""' left))
+map `;'         (ifelse c=125 (`;' -return) (`;'))
+
+map `a-del'     (if c=123 (block while c<>125 (down) block bdelete))
+
+map `a-/'       (ifelse c=42 (` ' right right) (`/* */' left left))
+
+#XDE Style
+
+map `f9' `first scanf %s block block bdelete newfile \$scanf'
+map `f8' `saveold iconify'
+
+
+
+
+
+------------------------cut this-------------------------
+#######################################################################
+
+My .edrc file for DME.
+Features:
+  Blinking of matching parentheses
+  Automatic C indentation (My own style, of course)
+  Automatic level matching of {}, [], "" and ()
+  Fast 'newfile'
+
+
+Blinking of matching parentheses
+
+  Matching parentheses are accomplished by the use of a recursive
+  DME macro. Unfortunately DME isn't very quick at executing it's
+  macros so I don't recommend using it for Lisp, Scheme and other
+  parentheses-intensive languages. I think it's adequate for C or
+  Modula etc. It works like this:
+
+  * When you type a left parentheses, both the left and the matching
+    right one is inserted and the cursor is placed on the right one.
+
+  * As you type your expression the right parentheses is moved ahead.
+
+  * When you type the closing parentheses DME sees that the character
+    under the cursor is the needed closing parantheses and therefore
+    blinks the matching one and moves the cursor to the right.
+
+
+Automatic C indentation
+
+  C code is automatically indented. If you don't like my particular
+  style, too bad. Here's an example of what it looks like:
+
+  int function(x, y)      /* Pretty stupid function actually */
+  int x, y;
+  { int temp;
+    if (x<y)
+    { temp = x;
+      x = y;
+      y = temp;
+    }
+  }
+
+******** NOTE FROM MATT:    I don't like his indenting scheme, but I have
+	 not the time to modify the macros so they remain as-is.
+
+
+  Here's how it works:
+
+  * When you type a left bracket '{' a space and a closing bracket
+    is automatically inserted and the cursor is placed on the
+    closing bracket.
+
+  * Now you type your line. The closing bracket is moved to the right.
+
+  * When the line is finished you type a semicolon. Now DME sees
+    that the cursor is placed on a right bracket. DME supposes
+    that this line is finished, inserts a newline and indents the
+    next line to the same level as the previous line.
+
+  * When you're about to finish a block with a right bracket the
+    cursor should be placed on the closing bracket of this block.
+    Therefore, when you type a right bracket it is ignored and
+    the closing bracket that already exists is moved two steps to
+    the left, thereby closing the current block.
+
+
+Automatic level matching of {}, [], "" and ()
+
+  {} and () are described above. [] and "" works the same way but
+  without blinking or automatic formatting. That is, when the
+  opening character is typed the closing one is inserted immediately.
+  If the closing character is typed when the cursor is standing on
+  that same character the cursor is just moved one step to the right.
+  If you for some reason want to override the special interpretation
+  of these characters I recommend typing them with Alt held down.
+
+
+Fast 'newfile'
+
+  This is a ripoff from XDE (Xerox Development Environment) found
+  on the Xerox machines.
+  To load a file:
+
+  1. Open a new DME window
+  2. Type the filename
+  3. Press f9
+
+  That's it. When you press f9, DME scans the filename, removes it
+  from the document and loads the file.
+  On the Xerox the f9 button is labelled "DO".
+
+
+Other features
+
+  To remember things one can think of the functions keys f9, f8 an
+  f10 (Yes, in that order) as DO, DID and DONE.
+  The actions performed by these keys are:
+
+  f9  DO this file. See "Fast 'newfile'".
+
+  f8  DID this file. Executes 'saveold iconify'.
+
+  f10 DONE. Executes 'saveold quit'
+
+  For inserting comments type alt-/. This inserts "/* */" and places
+  the cursor on the second "*" ready for typing the comment. When
+  you're finished type alt-/ again and the cursor is moved after the
+  closing "/".
+
+  Shift-Help opens a new DME window.
+
+  Ctrl-Return executes 'block'
+  Ctrl-Delete executes 'bdelete'
+
+  Tab moves the cursor to line up with a word on the row above the
+  current one. Actually if performs 'up word-right down'.
+
+  Shift-left and shift-right moves a word at a time.
+  Shift-up and shift-down moves a page up or down.
+
+  Alt-left and alt-right moves to the start or end of the line.
+  Alt-up and Alt-down moves to the top or bottom of the document.
+  Ctrl-"arrow" works as alt-"arrow".
+
+  Ctrl-t swaps two characters.
+  Alt-t swaps two lines.
+
+  Shift-Delete deletes from the cursor to end of line. If the cursor
+  already is at the end of the line the "newline" is deleted.
+
+
+
+Well, that's it. Have fun.
+
+Mikael Karlsson
+Lövsättersvägen 10
+S-585 98  LINKÖPING
+SWEDEN
+
+C86.M-KARLSSON@LINUS.Liuida.Seismo
+
+

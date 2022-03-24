@@ -1,0 +1,112 @@
+
+#   MACROS FROM BRYCE
+
+
+#   Some people do not like the default cursor key mappings
+#   (see DME.DOC).  Here is an example of remapping them.
+
+map `c-up'  `scrollup'
+map `c-dow' `scrolldown'
+
+map `s-up'  `pageup'
+map `s-dow' `pagedown'
+map `s-lef' `wleft'
+map `s-rig' `wright'
+
+map `a-dow' `bottom'
+map `a-up'  `top'
+map `a-rig' `last'
+map `a-lef' `first'
+
+
+#	MACROS FROM KIM AND FRIENDS
+insertmode on
+savetabs on
+tabstop 8
+pageset 96
+# spltjoin
+  map `f1'  `ifelse r `join del' split'
+# sos lineadd
+  map `f2'  `ifelse b `last split down first deline' `last split down first''
+# fffile
+  map `f3'  `ifelse m `saveold quit' `quit''
+  map `f4'  `join'
+  map `f5'  `escimm `insfile ''
+  map `f6'  `escimm `insfile df1:readme.list''
+  map `f7'  `pageup screentop first'
+  map `f8'  `pagedown screentop first'
+  map `f9'  `insertmode toggle'
+  map `f10' `ifelse t bottom top'
+  map `s-f7'  `top screentop first'
+  map `s-f8'  `bottom screentop first'
+# capitalize word
+  map `nk0' `wleft if c=34 right if c=39 right if c=96 right if cl `tlate -32' while ca right'
+# Uncapitalize word
+  map `s-nk0' `wleft if c=34 right if c=39 right if c=96 right if cu `tlate +32' while ca right'
+  map `nk3' `ifelse m `saveold quit' `quit''
+# save current line in ram file
+  map `nk4' `unblock block block bsave ram:dmesave deline'
+# get line from ram file (works across edit files
+  map `nk5' `insfile ram:dmesave down'
+# move current line up 1 line within the file
+  map `nk7' `ifelse t `right left' `unblock block block up bmove unblock' '
+# move current line down 1 line within the file
+  map `nk8' `down unblock block block up bmove unblock down'
+  map c-k `remeol'
+  map `c-s' `escimm `find ''
+# delete with end-of-line join and handling of DME bug with join at the bottom of the file
+  map del `ifelse !r del `if !b `down ifelse b `settoggle 1' `resettoggle 1' up join if 1 down'''
+# return which handles DME bug of adding 2 lines at the end of a file
+  map return `ifelse b `split down first down deline' `split down first''
+  map `s- ' `` ''
+# backspace with end-of-line join and handling of DME bug with join at the bottom of the file
+  map `bs' `ifelse !l bs `ifelse b `settoggle 1' `resettoggle 1' up last join if 1 down del''
+  map `tab' `tab'
+  map `s-tab' `backtab'
+  map `help'  `newwindow newfile df1:s/dme.help'
+# make current character upper case and move the cursor right one character
+  map `nk-' `if cl `tlate -32' right'
+
+
+#	MACROS FROM STEVEN SWEETING
+
+savetabs on
+
+map return `ifelse r `return insline up firstnb down' `split first down''
+
+map backspace `ifelse l `up repeat cright right join if c=32 del' `back''
+
+map delete `ifelse r `join if c=32 del' `del''
+
+map left `ifelse l `up repeat cright right' `left''
+
+map help `'
+
+map A-c `saveold execute `run make' iconify'
+map sA-c `saveold execute `run make -f SRC:makefile' iconify'
+
+map A-p `escimm `Press [RETURN] to Print, [ESC] to stop' saveas `PRT:''
+
+map A-s `bsave vd0:tmp'
+map A-l `insfile vd0:tmp'
+
+map A-n `execute `newcli''
+
+map c-k `ifelse r `join first' `remeol''
+
+map c-right wright
+
+map c-left  wleft
+
+map `sc-/' `escimm `findr ''
+
+map `sc-n' `nextr'
+
+map `sc-p' `prevr'
+
+map `sL-lmb' `tomouse firstnb repeat tr `` '''
+
+map `sR-rmb' `tomouse firstnb repeat tl bs'
+
+
+

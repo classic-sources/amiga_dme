@@ -1,0 +1,124 @@
+## ...deleted stuff...
+
+##
+##  s-return is a fast, simple <return>-like key; it will go to the
+##  left-hand column of the next line, if hit on a blank line. s-return is
+##  intended to be useful in some macros, primarily.
+##
+##  cs-return is a variation on s-return; it does an s-return on the _next_
+##  line.  Again, I only use it in macros.
+##
+##  a-return is what is really used for the <return> key.  I created the
+##  indirection in the <return> key, since there is a <return> in the DME
+##  primitive support, forcing me to do $return when I mean <return>.  This
+##  causes problems when there are multiple $returns (appears to be a DME
+##  bug, but I'm not sure at this time; need to check sometime). a-return
+##  can split the current line, and will "remember" your indentation if you
+##  are on a blank line.
+##
+##  Plain return is what the <return> maps to, of course.  Uses a-return.
+##
+##
+map s-return	(last split firstnb down)
+map cs-return	(down s-return)
+map a-return	(split set col \$colno firstnb ifelse x=1 (if !r (set col
+\$colno) ) (set col \$colno) down first while x<\$col (` ') while c=32 (del) )
+map return	(a-return)
+# map return	(ping 0 split firstnb if x=1 (if r (pong 0) ) down insline `*'
+join bs del)
+
+
+##
+##  these provide some (very limited) "auto formatting."
+##
+##  Note that for each formatting key, the alt key must be held.  This is
+##  simply because I use DME for various things, and at the moment don't
+##  want to contend with multiple config files for different things.
+##
+##  a-[ is an "auto brace".  It will format braces according to my taste. I
+##  _could_ have made it a-{, instead of a-[, but I don't really need
+##  square brackets formatted much, and don't want to have to push both alt
+##  & shift to do this...
+##
+##  a-] is another "auto brace"
+##
+##  a-; is an "auto semicolon."  If the previous line was blank, if we are
+##  at the top of the file, or the previous line ended with another
+##  semicolon, this just tacks a ; on the end of the current line and moves
+##  down a line (since DME doesn't have an "and" for its expressions, I had
+##  to duplicate code for all of these cases; thus the inspiration for the
+##  <s-return>, which makes this much simpler).  If there is a previous
+##  line has anything on it, and ends with anything other than a ;, a-;
+##  will do as before, but will also un-indent one level.  This isn't
+##  really an entirely satisfactory representation.  One could, of course,
+##  keep on adding special cases for the end of the previous line, up
+##  until one hits DME's 255 char limit for a command string...
+##  (Unfortunately, a-; is currently right up near the upper limit...
+##  Perhaps more work could be done to offload some of the junk to other
+##  keys...  Presently, if the previous line ends with { or /, this key
+##  will unindent.)
+##
+##  s-nk1 will put a `**' in the current column, REPACING wahtever was
+##  there before.  It also drops down a line.  Useful for putting in
+##  comment-marker columns (a variation (s-nk2), putting in `##' was used
+##  for writing these comments...).  A possible variation would be to have
+##  spaces (say, 4 of'em) inserted so that `**' won't overwrite anything.
+##
+##  a-nk1 will "undo" a-nk1's work.
+##
+##  sa-nk1 will move the current line to be indented aligned with the
+##  current cursor position.  It will then, like other -nk1 keys, move down
+##  one line.
+##
+##  s-nk3 puts a double-semicolon (;;) column in, as s-nk1 does with
+##  asterisks.
+##
+##
+
+map a-[ 	(last a-return `{' split firstnb down tab)
+map a-] 	(last a-return $s-tab `}')
+map a-; (set col \$colno last if l (col \$col) `;' ifelse t (s-return) (up last
+ifelse l (cs-return) (left ifelse c=59 (cs-return) (ifelse c<=32 (cs-return)
+(ifelse c>126 (cs-return) (ifelse c=125 (cs-return) (cs-return backtab))))))
+
+
+map s-nk1	(del del `**' left left down)
+map a-nk1	(del del `  ' left left down)
+map sa-nk1	(insline `*' join bs del down)
+map s-nk3	(del del `;;' left left down)
+
+
+
+##
+##  These give me cursor control more like Uedit's.  Not exactly the
+##  same, but enough to keep me happy for now.
+##
+##
+##  The nk6 key was something of a pain to write, like the return key
+##  above, but it got done...yay!  (sorta...DME needs a break statement or
+##  else 'boolean' operators (and, or, etc.) for its loops.
+##
+##
+
+map (nk8)   (up)
+map (nk2)   (down)
+map (nk4)   (wleft)
+map (nk6)   (wleft wright if r (down first while r (down)) while !c<=32 (right))
+
+map (s-nk8) (up)
+map (s-nk2) (down)
+map (s-nk4) (left)
+map (s-nk6) (right)
+
+map (c-nk8) (pageup)
+map (c-nk2) (pagedown)
+map (c-nk4) (first)
+map (c-nk6) (last)
+
+## ...deleted stuff...
+
+map f10 arpload
+map s-f10 (newwindow arpload)
+
+## ...deleted stuff...
+

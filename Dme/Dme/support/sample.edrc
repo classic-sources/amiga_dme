@@ -1,0 +1,34 @@
+
+#   SAMPLE  .EDRC file
+#
+#   copy to S:.EDRC after removing unwanted stuff
+
+
+#   By default DME does not put tabs in the output file.    `savetabs on'
+#   causes DME to optimize the output file with tabs.
+
+
+savetabs on
+map c-tab   ``    ' left left left left'
+map cs-tab  `del del del del'
+map a-tab   `goto block while cb `c-tab down''
+map as-tab  `goto block while cb `cs-tab down''
+
+#   If we have menus, RMB cannot be used for iconify.
+#   SAVEQUIT is an example of calling menu functions from a command string
+map help iconify
+
+menuadd Project ChangeName  (escimm (chfilename ))
+menuadd Project Load	    f2
+menuadd Project Insert	    f1
+menuadd Project NewWindow   f3
+menuadd Project Save	    f9
+menuadd Project SaveAs	    (escimm (saveas ))
+menuadd Project SaveQuit    (project-save project-quit)
+menuadd Project Quit	    quit
+menuadd Convert LF->CRLF    (top repeat -1 (last tlate 13 down))
+menuadd Convert CRLF->LF    (top repeat -1 (last left if c=13 del down))
+menuadd Block	Indent	    (goto block while cb (first (    ) down))
+menuadd Block	Backdent    (goto block while cb (first repeat 4 (if c=32 del) down))
+menuon
+

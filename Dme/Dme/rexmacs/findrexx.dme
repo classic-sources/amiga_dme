@@ -1,0 +1,5 @@
+/* findrexx */
+options failat 5
+find "rexx"
+exit RC
+

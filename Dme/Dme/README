@@ -1,0 +1,51 @@
+
+				  DME
+
+			  A Programmer's Editor
+
+			    Matthew Dillon
+
+    DME (c)Copyright 1989, Matthew Dillon, All Rights Reserved.
+
+    This program is freely distributable in its original form and for
+    non-profit only.
+
+    Parts of the sources may be used in unassociated programs (i.e.
+    anything that isn't an editor).  You may NOT redistribute modified
+    sources, period.
+
+INSTALLATION:
+    Copy s/.edrc s:
+    Copy c/dme c:
+    Copy c/dme.info c:
+
+    DME is residentable
+    Modify s:.edrc according to your desires (read the docs)
+
+
+First Time DME users:
+    READ THE DOCUMENTATION.  There is no online help for DME.  The
+    editor is designed for programmers like me.  However, the
+    distributed .edrc does set up some primitive menus to help first
+    timers learn some of the more useful keymaps.
+
+Seasoned DME users:
+    The end of the documentation contains changes and bug fixes to
+    this version.  Review the command list.
+
+			    Matthew Dillon
+			    891 Regal Rd.
+			    Berkeley, Ca. 94708
+			    USA
+
+			    INTERNET: dillon@postgres.berkeley.edu
+			    BIX: mdillon
+
+
+SOURCE:
+	Lattice C V5.04
+	dmake -f dmakefile.lattice
+	sup32.lib, and associated <local/*.h> includes.
+
+	WARNING WARNING WARNING.  V1.40 is experimental and may not compile
+	straight using Lattice or Aztec C.

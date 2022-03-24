@@ -1,0 +1,7 @@
+/*   Just make "qq" a synonym/alias for "quit".   */
+/*						  */
+/*   Kim DeVaughn  03/27/88			  */
+
+quit
+exit 0
+
